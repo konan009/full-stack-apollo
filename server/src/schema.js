@@ -35,6 +35,11 @@ const typeDefs = gql`
         LARGE
     }
 
+    type Mutation {
+        bookTrips(launchIds: [ID]!): TripUpdateResponse!
+        cancelTrip(launchId: ID!): TripUpdateResponse!
+        login(email: String): User
+    }
 
     type Query {
         launches( # replace the current launches query with this one.
@@ -63,11 +68,7 @@ const typeDefs = gql`
         launches: [Launch]
     }
 
-    type Mutation {
-        bookTrips(launchIds: [ID]!): TripUpdateResponse!
-        cancelTrip(launchId: ID!): TripUpdateResponse!
-        login(email: String): User
-    }
+
 `;
 
 module.exports = typeDefs;
