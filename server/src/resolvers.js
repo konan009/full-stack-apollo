@@ -6,13 +6,11 @@ module.exports = {
             const allLaunches = await dataSources.launchAPI.getAllLaunches();
             // we want these in reverse chronological order
             allLaunches.reverse();
-      
             const launches = paginateResults({
               after,
               pageSize,
               results: allLaunches
             });
-            
             const result = {
               launches,
               cursor: launches.length ? launches[launches.length - 1].cursor : null,
@@ -80,8 +78,7 @@ module.exports = {
           },
     },
     Launch: {
-        isBooked: async (launch, _, { dataSources }) =>
-          dataSources.userAPI.isBookedOnLaunch({ launchId: launch.id }),
+        isBooked: async (launch, _, { dataSources }) =>  dataSources.userAPI.isBookedOnLaunch({ launchId: launch.id }),
     },
     User: {
         trips: async (_, __, { dataSources }) => {
