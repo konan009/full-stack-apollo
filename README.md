@@ -1,1 +1,1 @@
-# full-stack-apollo
+# Full Stack Apollo
