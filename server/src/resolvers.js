@@ -23,7 +23,9 @@ module.exports = {
             };
             return result;
         },
-        launch: (_, {id}, {dataSources}) => dataSources.launchAPI.getLaunchById({launchId: id}),
+        launch: (_, {id}, context) => {
+          return  context.dataSources.launchAPI.getLaunchById({launchId: id})
+        },
         me: (_, __, {dataSources}) => dataSources.userAPI.findOrCreateUser()
     },
     Mutation: {
@@ -39,7 +41,6 @@ module.exports = {
             const launches = await dataSources.launchAPI.getLaunchesByIds({
               launchIds,
             });
-        
             return {
               success: results && results.length === launchIds.length,
               message:

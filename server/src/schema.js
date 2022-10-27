@@ -1,9 +1,11 @@
 const {gql} = require('apollo-server');
 
 const typeDefs = gql`
+    directive @upper on FIELD_DEFINITION
+
     type Launch {
         id: ID!
-        site: String
+        site: String 
         mission: Mission
         rocket: Rocket
         isBooked: Boolean!
@@ -42,14 +44,8 @@ const typeDefs = gql`
     }
 
     type Query {
-        launches( # replace the current launches query with this one.
-            """
-            The number of results to show. Must be >= 1. Default = 20
-            """
+        launches( 
             pageSize: Int
-            """
-            If you add a cursor here, it will only return results _after_ this cursor
-            """
             after: String
         ): LaunchConnection!
         launch(id: ID!): Launch
@@ -64,7 +60,7 @@ const typeDefs = gql`
 
     type TripUpdateResponse {
         success: Boolean!
-        message: String
+        message: String @upper
         launches: [Launch]
     }
 
