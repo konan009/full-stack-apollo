@@ -86,7 +86,7 @@ export type LaunchGetLaunchByIdArg = number;
 export type LaunchReducerResponse = Launch;
 
 export type LaunchGetByIdsResponse = Launch[];
-export type LaunchGetByIdsArgs = Launch[];
+export type LaunchGetByIdsArgs = number[];
 
 export type LaunchGetAllLaunchesResponse = Launch[];
 
