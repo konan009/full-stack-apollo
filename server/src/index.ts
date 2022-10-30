@@ -76,14 +76,13 @@ import { typeDefs } from './schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import { ApolloServer } from 'apollo-server';
 import { LaunchDataSource, UserDataSource } from './datasources';
+import { createStore } from './utils';
 
 let schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
-const { createStore } = require('./utils');
 const store = createStore();
-
 const server = new ApolloServer({
   context: async ({ req }) => {
     return null;
@@ -93,4 +92,12 @@ const server = new ApolloServer({
     launchAPI: new LaunchDataSource(),
     userAPI: new UserDataSource({ store }),
   }),
+});
+
+server.listen().then(() => {
+  console.log(`
+    Server is running!
+    Listening on port 4000
+    Explore at https://studio.apollographql.com/sandbox
+  `);
 });

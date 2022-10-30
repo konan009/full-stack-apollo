@@ -1,8 +1,6 @@
 import { gql } from 'apollo-server';
 
 export const typeDefs = gql`
-  directive @upper on FIELD_DEFINITION
-
   type Launch {
     id: ID!
     site: String
@@ -40,7 +38,7 @@ export const typeDefs = gql`
   type Mutation {
     bookTrips(launchIds: [ID]!): TripUpdateResponse!
     cancelTrip(launchId: ID!): TripUpdateResponse!
-    login(email: String): User
+    loginUser(email: String): User
   }
 
   type Query {
@@ -49,7 +47,7 @@ export const typeDefs = gql`
     me: User
   }
 
-  type LaunchConnection { # add this below the Query type as an additional type.
+  type LaunchConnection {
     cursor: String!
     hasMore: Boolean!
     launches: [Launch]!

@@ -52,18 +52,21 @@ export type Launch = {
   rocket: Rocket;
 };
 
-export type EmailArgument = {
+// DATA RESOURCE RETURN FOR LAUNCHES
+export type UserFindOrCreateUserArg = {
   email?: string;
 };
+export type UserGetLaunchIdsByUserReturn = number[];
+export type UserFindOrCreateUserReturn = User;
 
-// DATA RESOURCE RETURN FOR LAUNCHES
-export type UserGetLaunchIdsByUser = number[];
+export type UserCancelTripReturn = boolean;
+export type UserCancelTripArg = number;
 
-export type UserFindOrCreateUserResponse = User;
+export type UserIsBookedOnLaunchReturn = boolean;
+export type UserIsBookedOnLaunchArg = number;
 
-export type UserCancelTripResponse = boolean;
-
-export type UserBookTripResponse =
+export type UserBookTripArg = number;
+export type UserBookTripReturn =
   | {
       id: number;
       createdAt: Date;
@@ -73,39 +76,40 @@ export type UserBookTripResponse =
     }
   | false;
 
-export type UserBookTripsResponse = UserBookTripResponse[];
+export type UserBookTripsArg = number[];
+export type UserBookTripsReturn = UserBookTripReturn[];
 
 // DATA RESOURCE RETURN FOR USER
 export type LaunchGetLaunchByIdResponse = Launch;
-export type LaunchGetByIdsResponse = Launch[];
+export type LaunchGetLaunchByIdArg = number;
+
 export type LaunchReducerResponse = Launch;
+
+export type LaunchGetByIdsResponse = Launch[];
+export type LaunchGetByIdsArgs = Launch[];
+
 export type LaunchGetAllLaunchesResponse = Launch[];
 
 // For Mutation
 export type MutationCancelTripArgs = {
   launchId: Scalars['Int'];
 };
-
 export type MutationBookTripsArg = {
   launchIds: number[];
 };
-
 export type MutationLoginArg = {
   email: Scalars['String'];
 };
-
 export type MutationBookTripReturn = {
   success: boolean;
   message: string;
   launches?: Launch[];
 };
-
 export type MutationCancelTripReturn = {
   success: boolean;
   message: string;
   launches?: Launch[];
 };
-
 export type MutationUserReturn =
   | {
       id: number;
@@ -118,34 +122,26 @@ export type MutationUserReturn =
 
 // For Query
 export type QueryLaunchParent = undefined;
-
 export type QueryLaunchArgs = {
   id: Scalars['Int'];
 };
-
 export type QueryLaunchReturn = Launch;
-
 export type QueryLaunchesArgs = {
   pageSize: number;
   after: string;
 };
-
 export type QueryLaunchesReturn = {
   cursor: string;
   hasMore: boolean;
   launches: Launch[];
 };
-
 export type QueryMeReturn = User;
 
 // Mission Object Type
-
 export type MissionPatchReturn = String;
-
 export type MissionPatchArg = {
   size: string;
 };
-
 export type MissionPatchParent = Mission;
 
 // Launch Object Type

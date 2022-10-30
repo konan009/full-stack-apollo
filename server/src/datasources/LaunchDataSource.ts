@@ -5,6 +5,8 @@ import {
   LaunchGetLaunchByIdResponse,
   LaunchReducerResponse,
   LaunchGetAllLaunchesResponse,
+  LaunchGetLaunchByIdArg,
+  LaunchGetByIdsArgs,
 } from '../common/interfaces';
 
 export class LaunchDataSource extends RESTDataSource {
@@ -36,12 +38,12 @@ export class LaunchDataSource extends RESTDataSource {
     };
   }
 
-  async getLaunchById(launchId: number): Promise<LaunchGetLaunchByIdResponse> {
+  async getLaunchById(launchId: LaunchGetLaunchByIdArg): Promise<LaunchGetLaunchByIdResponse> {
     const response = await this.get('launches', { flight_number: launchId });
     return this.launchReducer(response[0]);
   }
 
-  getLaunchesByIds(launchIds: number[]): Promise<LaunchGetByIdsResponse> {
+  getLaunchesByIds(launchIds: LaunchGetByIdsArgs): Promise<LaunchGetByIdsResponse> {
     return Promise.all(launchIds.map((launchId: number) => this.getLaunchById(launchId)));
   }
 }
