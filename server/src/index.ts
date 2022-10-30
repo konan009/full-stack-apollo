@@ -52,7 +52,7 @@
 //         // find a user by their email
 //         const users = await store.users.findOrCreate({where: {email}});
 //         const user = (users && users[0]) || null;
-    
+
 //         return {user: {...user.dataValues}};
 //       },
 //     schema,
@@ -60,9 +60,8 @@
 //       launchAPI: new LaunchAPI(),
 //       userAPI: new UserAPI({store})
 //     }),
-   
-// });
 
+// });
 
 // server.listen().then(() => {
 //   console.log(`
@@ -72,28 +71,26 @@
 //   `);
 // });
 
-
 import { resolvers } from './resolver';
 import { typeDefs } from './schema';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import {ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server';
 import { LaunchDataSource, UserDataSource } from './datasources';
 
 let schema = makeExecutableSchema({
-    typeDefs,
-    resolvers
+  typeDefs,
+  resolvers,
 });
-const {createStore} = require('./utils');
+const { createStore } = require('./utils');
 const store = createStore();
 
 const server = new ApolloServer({
-    context: async ({req}) => {
-        return null;
-      },
-    schema,
-    dataSources: () => ({
-      launchAPI: new LaunchDataSource(),
-      userAPI: new UserDataSource({store})
-    }),
-   
+  context: async ({ req }) => {
+    return null;
+  },
+  schema,
+  dataSources: () => ({
+    launchAPI: new LaunchDataSource(),
+    userAPI: new UserDataSource({ store }),
+  }),
 });

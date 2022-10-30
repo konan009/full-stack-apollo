@@ -5,5 +5,5 @@ import { Types } from './Types';
 export const resolvers = {
   Query,
   Mutation,
-  ...Types
+  ...Types,
 };

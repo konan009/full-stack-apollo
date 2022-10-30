@@ -3,7 +3,7 @@ import { Mission } from './Mission';
 import { User } from './User';
 
 export const Types = {
-    Launch,
-    Mission,
-    User
+  Launch,
+  Mission,
+  User,
 };

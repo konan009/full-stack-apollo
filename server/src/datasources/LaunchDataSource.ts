@@ -1,22 +1,24 @@
-
-import { RESTDataSource } from "apollo-datasource-rest";
-import { SPACE_DATA_URL } from "../common/constants";
+import { RESTDataSource } from 'apollo-datasource-rest';
+import { SPACE_DATA_URL } from '../common/constants';
+import {
+  LaunchGetByIdsResponse,
+  LaunchGetLaunchByIdResponse,
+  LaunchReducerResponse,
+  LaunchGetAllLaunchesResponse,
+} from '../common/interfaces';
 
 export class LaunchDataSource extends RESTDataSource {
-  
   constructor() {
     super();
     this.baseURL = SPACE_DATA_URL;
   }
 
-  async getAllLaunches() {
+  async getAllLaunches(): Promise<LaunchGetAllLaunchesResponse> {
     const response = await this.get('launches');
-    return Array.isArray(response)
-      ? response.map(launch => this.launchReducer(launch))
-      : [];
+    return Array.isArray(response) ? response.map((launch) => this.launchReducer(launch)) : [];
   }
 
-  launchReducer(launch:any) {
+  launchReducer(launch: any): LaunchReducerResponse {
     return {
       id: launch.flight_number || 0,
       cursor: `${launch.launch_date_unix}`,
@@ -34,14 +36,12 @@ export class LaunchDataSource extends RESTDataSource {
     };
   }
 
-  async getLaunchById(launchId : number) {
+  async getLaunchById(launchId: number): Promise<LaunchGetLaunchByIdResponse> {
     const response = await this.get('launches', { flight_number: launchId });
     return this.launchReducer(response[0]);
   }
 
-  getLaunchesByIds(launchIds : number[]) {
-    return Promise.all(
-      launchIds.map( (launchId : number) => this.getLaunchById(launchId)),
-    );
+  getLaunchesByIds(launchIds: number[]): Promise<LaunchGetByIdsResponse> {
+    return Promise.all(launchIds.map((launchId: number) => this.getLaunchById(launchId)));
   }
 }

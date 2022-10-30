@@ -1,6 +1,6 @@
-import { Context, Record } from '../../../common/interfaces';
+import { Context } from '../../../common/interfaces';
 
-export const trips = async (_ : Record<string,unknown>, __ : any, context: Context) => {
+export const trips = async (_ : any, __ : any, context: Context) => {
     // get ids of launches by user
     const launchIds = await context.dataSources.userAPI.getLaunchIdsByUser();
 
