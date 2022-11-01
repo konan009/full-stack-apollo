@@ -1,7 +1,12 @@
-import { Context, QueryLaunchArgs, QueryLaunchReturn } from '../../common/interfaces';
+import {
+  Context,
+  QueryLaunchArgs,
+  QueryLaunchReturn,
+  QueryLaunchParent,
+} from '../../common/interfaces';
 
 export const launch = (
-  _: any,
+  _: QueryLaunchParent,
   { id }: QueryLaunchArgs,
   context: Context
 ): Promise<QueryLaunchReturn> => {

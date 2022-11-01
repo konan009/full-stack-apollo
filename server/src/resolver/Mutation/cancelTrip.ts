@@ -1,8 +1,8 @@
 import { MutationCancelTripArgs, Context } from '../../common/interfaces';
-import { MutationCancelTripReturn } from '../../common/interfaces';
+import { MutationCancelTripReturn, MutationCancelTripParent } from '../../common/interfaces';
 
 export const cancelTrip = async (
-  _: any,
+  _: MutationCancelTripParent,
   { launchId }: MutationCancelTripArgs,
   context: Context
 ): Promise<MutationCancelTripReturn> => {

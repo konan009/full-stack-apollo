@@ -1,64 +1,54 @@
 import { LaunchDataSource, UserDataSource } from '../../datasources';
 
-type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Date: any;
-  Upload: any;
-};
-
-export interface PaginateArg {
+export type PaginateArg = {
   after: string | undefined;
   pageSize: number;
   results: Launch[];
   getCursor?: () => null;
-}
+};
 
-export interface User {
-  id: number;
+export type User = {
+  readonly id: number;
   email: string;
   token: string;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-export interface Context {
+export type Context = {
   user?: User;
   dataSources: {
     launchAPI: LaunchDataSource;
     userAPI: UserDataSource;
   };
-}
-export interface Mission {
+};
+export type Mission = {
   name: String;
   missionPatchSmall: String;
   missionPatchLarge: String;
-}
+};
 
-export interface Rocket {
-  id: string;
+export type Rocket = {
+  readonly id: string;
   name: string;
   type: string;
-}
+};
 
-export interface Launch {
-  id: number;
+export type Launch = {
+  readonly id: number;
   cursor: string;
   site: string;
   mission: Mission;
   rocket: Rocket;
-}
+};
 
-export interface BookTrip {
-  id: number;
+export type BookTrip = {
+  readonly id: number;
   createdAt: Date;
   updatedAt: Date;
   launchId: number;
   userId: number;
-}
+};
 
 // DATA RESOURCE RETURN FOR LAUNCHES
 export type UserFindOrCreateUserArg = {
@@ -74,7 +64,6 @@ export type UserIsBookedOnLaunchReturn = boolean;
 export type UserIsBookedOnLaunchArg = number;
 
 export type UserBookTripArg = number;
-
 export type UserBookTripReturn = BookTrip | false;
 
 export type UserBookTripsArg = number[];
@@ -89,14 +78,18 @@ export type LaunchGetByIdsArgs = number[];
 export type LaunchGetAllLaunchesResponse = Launch[];
 
 // FOR MUTATION
+export type MutationCancelTripParent = undefined;
 export type MutationCancelTripArgs = {
-  launchId: Scalars['Int'];
+  launchId: number;
 };
+
+export type MutationBookTripsParent = undefined;
 export type MutationBookTripsArg = {
   launchIds: number[];
 };
+export type MutationLoginParent = undefined;
 export type MutationLoginArg = {
-  email: Scalars['String'];
+  email: string;
 };
 export type MutationBookTripReturn = {
   success: boolean;
@@ -113,8 +106,9 @@ export type MutationUserReturn = User | undefined;
 // For Query
 export type QueryLaunchParent = undefined;
 export type QueryLaunchArgs = {
-  id: Scalars['Int'];
+  id: number;
 };
+export type QueryLaunchesParent = undefined;
 export type QueryLaunchReturn = Launch;
 export type QueryLaunchesArgs = {
   pageSize: number;
@@ -125,7 +119,14 @@ export type QueryLaunchesReturn = {
   hasMore: boolean;
   launches: Launch[];
 };
+
+export type QueryMeParent = undefined;
+export type QueryMeArgs = {};
 export type QueryMeReturn = User;
+
+// User Trips
+export type UserTripsParent = User;
+export type UserTripsArgs = {};
 
 // Mission Object Type
 export type MissionPatchReturn = String;
@@ -136,3 +137,4 @@ export type MissionPatchParent = Mission;
 
 // Launch Object Type
 export type LaunchIsBookedParent = Launch;
+export type LaunchIsBookedArgs = {};

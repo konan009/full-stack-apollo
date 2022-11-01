@@ -1,8 +1,8 @@
 import { MutationBookTripsArg, Context } from '../../common/interfaces';
-import { MutationBookTripReturn } from '../../common/interfaces';
+import { MutationBookTripReturn, MutationBookTripsParent } from '../../common/interfaces';
 
 export const bookTrips = async (
-  _: any,
+  _: MutationBookTripsParent,
   { launchIds }: MutationBookTripsArg,
   context: Context
 ): Promise<MutationBookTripReturn> => {

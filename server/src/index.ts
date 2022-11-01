@@ -10,6 +10,7 @@ let schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
+
 const store = createStore();
 const server = new ApolloServer({
   context: async ({ req }) => {

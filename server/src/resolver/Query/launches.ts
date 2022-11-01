@@ -1,8 +1,13 @@
 import { paginateResults } from '../../utils';
-import { Context, QueryLaunchesArgs, QueryLaunchesReturn } from '../../common/interfaces';
+import {
+  Context,
+  QueryLaunchesArgs,
+  QueryLaunchesReturn,
+  QueryLaunchesParent,
+} from '../../common/interfaces';
 
 export const launches = async (
-  _: any,
+  _: QueryLaunchesParent,
   { pageSize = 20, after }: QueryLaunchesArgs,
   context: Context
 ): Promise<QueryLaunchesReturn> => {

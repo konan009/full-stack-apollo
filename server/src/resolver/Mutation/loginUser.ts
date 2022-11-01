@@ -1,8 +1,8 @@
 import { Context, MutationLoginArg } from '../../common/interfaces';
-import { MutationUserReturn } from '../../common/interfaces';
+import { MutationUserReturn, MutationLoginParent } from '../../common/interfaces';
 
 export const loginUser = async (
-  _: any,
+  _: MutationLoginParent,
   { email }: MutationLoginArg,
   context: Context
 ): Promise<MutationUserReturn> => {
