@@ -10,20 +10,20 @@ type Scalars = {
   Upload: any;
 };
 
-export type PaginateArg = {
+export interface PaginateArg {
   after: string | undefined;
   pageSize: number;
   results: Launch[];
   getCursor?: () => null;
-};
+}
 
-export type User = {
+export interface User {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
   email: string;
   token: string;
-};
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export interface Context {
   user?: User;
@@ -32,25 +32,33 @@ export interface Context {
     userAPI: UserDataSource;
   };
 }
-export type Mission = {
+export interface Mission {
   name: String;
   missionPatchSmall: String;
   missionPatchLarge: String;
-};
+}
 
-export type Rocket = {
+export interface Rocket {
   id: string;
   name: string;
   type: string;
-};
+}
 
-export type Launch = {
+export interface Launch {
   id: number;
   cursor: string;
   site: string;
   mission: Mission;
   rocket: Rocket;
-};
+}
+
+export interface BookTrip {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  launchId: number;
+  userId: number;
+}
 
 // DATA RESOURCE RETURN FOR LAUNCHES
 export type UserFindOrCreateUserArg = {
@@ -66,31 +74,21 @@ export type UserIsBookedOnLaunchReturn = boolean;
 export type UserIsBookedOnLaunchArg = number;
 
 export type UserBookTripArg = number;
-export type UserBookTripReturn =
-  | {
-      id: number;
-      createdAt: Date;
-      updatedAt: Date;
-      launchId: number;
-      userId: number;
-    }
-  | false;
+
+export type UserBookTripReturn = BookTrip | false;
 
 export type UserBookTripsArg = number[];
-export type UserBookTripsReturn = UserBookTripReturn[];
+export type UserBookTripsReturn = BookTrip[];
 
 // DATA RESOURCE RETURN FOR USER
 export type LaunchGetLaunchByIdResponse = Launch;
 export type LaunchGetLaunchByIdArg = number;
-
 export type LaunchReducerResponse = Launch;
-
 export type LaunchGetByIdsResponse = Launch[];
 export type LaunchGetByIdsArgs = number[];
-
 export type LaunchGetAllLaunchesResponse = Launch[];
 
-// For Mutation
+// FOR MUTATION
 export type MutationCancelTripArgs = {
   launchId: Scalars['Int'];
 };
@@ -110,15 +108,7 @@ export type MutationCancelTripReturn = {
   message: string;
   launches?: Launch[];
 };
-export type MutationUserReturn =
-  | {
-      id: number;
-      createdAt: Date;
-      updatedAt: Date;
-      email: string;
-      token?: string;
-    }
-  | undefined;
+export type MutationUserReturn = User | undefined;
 
 // For Query
 export type QueryLaunchParent = undefined;
