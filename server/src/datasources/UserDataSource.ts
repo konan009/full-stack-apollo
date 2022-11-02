@@ -12,8 +12,10 @@ import {
   UserCancelTripArg,
   UserBookTripArg,
   UserBookTripsArg,
+  UserDataSourceInterface,
+  Context,
 } from '../common/interfaces';
-export class UserDataSource extends DataSource {
+export class UserDataSource extends DataSource implements UserDataSourceInterface {
   store: any;
   context: any;
 
@@ -22,12 +24,6 @@ export class UserDataSource extends DataSource {
     this.store = store;
   }
 
-  /**
-   * This is a function that gets called by ApolloServer when being setup.
-   * This function gets called with the datasource config including things
-   * like caches and context. We'll assign this.context to the request context
-   * here, so we can know about the user making requests
-   */
   initialize(config: any): void {
     this.context = config.context;
   }

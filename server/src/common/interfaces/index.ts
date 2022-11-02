@@ -1,5 +1,24 @@
 import { LaunchDataSource, UserDataSource } from '../../datasources';
 
+export interface UserDataSourceInterface {
+  store: any;
+  context: Context;
+  initialize(config: any): void;
+  findOrCreateUser(arg: UserFindOrCreateUserArg): Promise<UserFindOrCreateUserReturn>;
+  bookTrips(launchIds: UserBookTripsArg): Promise<UserBookTripsReturn>;
+  bookTrip(launchId: UserBookTripArg): Promise<UserBookTripReturn>;
+  cancelTrip(launchId: UserCancelTripArg): Promise<UserCancelTripReturn>;
+  getLaunchIdsByUser(): Promise<UserGetLaunchIdsByUserReturn>;
+  isBookedOnLaunch(launchId: UserIsBookedOnLaunchArg): Promise<UserIsBookedOnLaunchReturn>;
+}
+
+export interface LaunchDataSourceInterface {
+  getAllLaunches(): Promise<LaunchGetAllLaunchesReturn>;
+  launchReducer(launch: any): LaunchReducerReturn;
+  getLaunchById(launchId: LaunchGetLaunchByIdArg): Promise<LaunchGetLaunchByIdReturn>;
+  getLaunchesByIds(launchIds: LaunchGetByIdsArgs): Promise<LaunchGetByIdsReturn>;
+}
+
 export type PaginateArg = {
   after: string | undefined;
   pageSize: number;
@@ -70,12 +89,12 @@ export type UserBookTripsArg = number[];
 export type UserBookTripsReturn = BookTrip[];
 
 // DATA RESOURCE RETURN FOR USER
-export type LaunchGetLaunchByIdResponse = Launch;
+export type LaunchGetLaunchByIdReturn = Launch;
 export type LaunchGetLaunchByIdArg = number;
-export type LaunchReducerResponse = Launch;
-export type LaunchGetByIdsResponse = Launch[];
+export type LaunchReducerReturn = Launch;
+export type LaunchGetByIdsReturn = Launch[];
 export type LaunchGetByIdsArgs = number[];
-export type LaunchGetAllLaunchesResponse = Launch[];
+export type LaunchGetAllLaunchesReturn = Launch[];
 
 // FOR MUTATION
 export type MutationCancelTripParent = undefined;
@@ -101,7 +120,7 @@ export type MutationCancelTripReturn = {
   message: string;
   launches?: Launch[];
 };
-export type MutationUserReturn = User | undefined;
+export type MutationUserReturn = User | void;
 
 // For Query
 export type QueryLaunchParent = undefined;
@@ -129,11 +148,11 @@ export type UserTripsParent = User;
 export type UserTripsArgs = {};
 
 // Mission Object Type
-export type MissionPatchReturn = String;
+export type MissionPatchParent = Mission;
 export type MissionPatchArg = {
   size: string;
 };
-export type MissionPatchParent = Mission;
+export type MissionPatchReturn = String;
 
 // Launch Object Type
 export type LaunchIsBookedParent = Launch;
